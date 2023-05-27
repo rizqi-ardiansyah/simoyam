@@ -145,7 +145,7 @@ class PeriksaController extends Controller
      * @param  \App\Models\Periksa  $periksa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Periksa $periksa)
+    public function delete($id)
     {
         if (auth()->user()->hasAnyRole(['admin'])) {
             $delete = Periksa::destroy($id);
