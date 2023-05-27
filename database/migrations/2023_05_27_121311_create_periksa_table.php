@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('tglPeriksa');
             $table->unsignedBigInteger('mati');
             $table->unsignedBigInteger('culling');
-            $table->unsignedBigInteger('bobot');
+            $table->float('bobot',8,2);
             $table->unsignedBigInteger('pakan');
             $table->timestamps();
         });

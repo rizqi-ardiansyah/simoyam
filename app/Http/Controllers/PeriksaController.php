@@ -18,7 +18,7 @@ class PeriksaController extends Controller
      */
     public function index()
     {
-        $periksa = Periksa::select('periksa.id as idPeriksa','periksa.idPerusahaan',
+        $periksa = Periksa::select('periksa.id as idPeriksa','periksa.idPerusahaan','kd.id as idKandang',
         'kd.noKandang','tglPeriksa','mati','culling','bobot','pakan')
             ->leftJoin('perusahaan as pr', 'periksa.idPerusahaan', '=', 'pr.idPerusahaan')
             ->leftJoin('kandang as kd','periksa.idKandang','=','kd.id')
@@ -103,9 +103,28 @@ class PeriksaController extends Controller
      * @param  \App\Models\Periksa  $periksa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Periksa $periksa)
+    public function edit(Request $request, $id)
     {
-        //
+        // $role = Role::where('id', $request->peran)->first();
+        $periksa = Periksa::where('id', $id)->first();
+
+        if (auth()->user()->hasAnyRole(['admin'])) {
+            $periksa->idPerusahaan = $request->idPerusahaan;
+            $periksa->idKandang = $request->idKandang;
+            $periksa->tglPeriksa = $request->tgl;
+            $periksa->mati = $request->mati;
+            $periksa->culling = $request->culling;
+            $periksa->bobot = $request->bobot;
+            $periksa->pakan = $request->pakan;
+            // $member->firstname = $request->namaDepan;
+            // $member->lastname = $request->namaBelakang;
+            // $member->email = $request->email;
+            $periksa->update();
+            // $addPeriksa->syncRoles($role);
+            Alert::success('Success', 'Data berhasil diubah');
+            return redirect()->back();
+        }
+        return redirect()->back();
     }
 
     /**
@@ -128,6 +147,24 @@ class PeriksaController extends Controller
      */
     public function destroy(Periksa $periksa)
     {
-        //
+        if (auth()->user()->hasAnyRole(['admin'])) {
+            $delete = Periksa::destroy($id);
+
+            // check data deleted or not
+            if ($delete == 1) {
+                $success = true;
+                $message = "Data berhasil dihapus";
+            } else {
+                $success = true;
+                $message = "Data gagal dihapus";
+            }
+
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
+        }
+        return back();
     }
 }

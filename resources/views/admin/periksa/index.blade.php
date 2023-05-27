@@ -86,7 +86,7 @@
 
                                             <div class="form-group">
                                                 <label for="bobot">Bobot (kg)</label>
-                                                <input type="number" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="bobot" required>
+                                                <input type="float" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="bobot" required>
                                             </div>
 
                                             <div class="form-group">
@@ -180,7 +180,7 @@
                                                     <i class="fas fa-eye mr-1"></i> Detail
                                                 </a>
                                                 <div class="dropdown-divider"></div> -->
-                                                <a href="#" class="dropdown-item " title="Edit Data" data-toggle="modal" data-target="#modal-edit-{{$periksa->idUser}}">
+                                                <a href="#" class="dropdown-item " title="Edit Data" data-toggle="modal" data-target="#modal-edit-{{$periksa->idPeriksa}}">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                                         <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                                                     </svg>
@@ -214,61 +214,58 @@
                     <!-- /.card-body -->
                 </div>
                 @foreach ($data as $detail)
-                <div class="modal fade" id="modal-edit-{{ $detail->idUser }}">
+                <div class="modal fade" id="modal-edit-{{ $detail->idPeriksa }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Edit Data Ayam</h4>
+                                <h4 class="modal-title">Edit Pemeriksaan</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <!-- form start -->
-                                <form action="{{ url('/kandang/edit/'.$detail->idUser) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ url('/periksa/edit/'.$detail->idPeriksa) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
-                                             <input type="hidden" class="form-control" id="idPerusahaan" name="idPerusahaan" value="<?php echo auth()->user()->idPerusahaan;?>" required>
 
+                                             <input type="hidden" class="form-control" id="idPerusahaan" name="idPerusahaan" value="<?php echo auth()->user()->idPerusahaan;?>" required>
+                                           
                                             <div class="form-group">
                                                 <label for="tanggal">Tanggal</label>
-                                                <input type="date" class="form-control" id="tgl" name="tgl" value="{{$detail->tglMasuk}}" required>
+                                                <input type="date" class="form-control" id="tgl" name="tgl" value="{{$detail->tglPeriksa}}" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="asal">Nomor Kandang</label>
-                                                <input type="number" class="form-control" id="noKandang" value="{{$detail->noKandang}}" name="noKandang" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="asal">Asal</label>
-                                                <input type="text" class="form-control" id="asal" value="{{$detail->asalPeternak}}" name="asal" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="position-option">Jenis</label>
-                                                
-                                                    <!-- @foreach ($role as $peran)
-                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
-                                                    </option>
-                                                    @endforeach
-                                                </select> -->
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="asal">Jumlah</label>
-                                                <input type="text" class="form-control" id="jml" value="{{$detail->jmlAyam}}" name="jml" required>
-                                            </div>
-
-                                            <!-- <div class="form-group">
-                                                <label for="position-option">Peran</label>
-                                                <select class="form-control" id="peran" name="peran" required>
-                                                    @foreach ($role as $peran)
-                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                <label for="position-option">No. Kandang</label>
+                                                <select class="form-control" id="idKandang" name="idKandang" required>
+                                                     <option selected value="{{ $detail->idKandang }}" hidden><?php echo $detail->noKandang; ?></option>
+                                                     @foreach ($kandang as $kandangs)
+                                                     <option value="{{ $kandangs->id }}">{{ $kandangs->noKandang }}
                                                     </option>
                                                     @endforeach
                                                 </select>
-                                            </div> -->
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mati">Mati</label>
+                                                <input type="number" class="form-control" id="mati" value="{{$detail->mati}}" name="mati" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="culling">Culling</label>
+                                                <input type="number" class="form-control" id="culling" value="{{$detail->culling}}" name="culling" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="bobot">Bobot (kg)</label>
+                                                <input type="float" class="form-control" id="bobot" value="{{$detail->bobot}}" name="bobot" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="pakan">Pakan (kg)</label>
+                                                <input type="number" class="form-control" id="pakan" value="{{$detail->pakan}}" name="pakan" required>
+                                            </div>
 
                                         </div>
                                         <!-- /.card-body -->
@@ -307,7 +304,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{url('kandang/delete')}}/" + id,
+                        url: "{{url('periksa/delete')}}/" + id,
                         data: {
                             _token: CSRF_TOKEN
                         },
