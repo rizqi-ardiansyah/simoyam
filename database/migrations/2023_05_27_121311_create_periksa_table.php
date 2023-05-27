@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kepala_keluarga', function (Blueprint $table) {
+        Schema::create('periksa', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('provinsi');
-            $table->string('kota');
-            $table->string('kecamatan');
-            $table->string('kelurahan');
-            $table->string('detail');
+            $table->string('idPerusahaan');
+            $table->string('idKandang');
+            $table->date('tglPeriksa');
+            $table->unsignedBigInteger('mati');
+            $table->unsignedBigInteger('culling');
+            $table->unsignedBigInteger('bobot');
+            $table->unsignedBigInteger('pakan');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kepala_keluarga');
+        Schema::dropIfExists('periksa');
     }
 };

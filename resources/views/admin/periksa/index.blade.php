@@ -7,12 +7,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>User</h1>
+                <h1>Pemeriksaan</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                    <li class="breadcrumb-item active">User</li>
+                    <li class="breadcrumb-item active">Periksa</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header justify-content-between">
-                        <h3 class="card-title">List User</h3>
+                        <h3 class="card-title">List Pemeriksaan</h3>
 
                         <div class="card-tools">
                             <form id="search">
@@ -47,42 +47,51 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Tambah User</h4>
+                                    <h4 class="modal-title">Tambah Pemeriksaan</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <!-- form start -->
-                                    <form action="{{ route('member.create') }}" method="POST">
+                                    <form action="{{ route('periksa.create') }}" method="POST">
                                         @csrf
                                         <div class="card-body">
                                              <input type="hidden" class="form-control" id="idPerusahaan" name="idPerusahaan" value="<?php echo auth()->user()->idPerusahaan;?>" required>
 
                                             <div class="form-group">
-                                                <label for="namaDepan">Nama depan</label>
-                                                <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" required>
+                                                <label for="tanggal">Tanggal</label>
+                                                <input type="date" class="form-control" id="tgl" name="tgl" placeholder="Masukkan tanggal" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="namaBelakang">Nama belakang</label>
-                                                <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" required>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="position-option">Peran</label>
-                                                <select class="form-control" id="peran" name="peran" required>
-                                                    @foreach ($role as $peran)
-                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                <label for="position-option">No. Kandang</label>
+                                                <select class="form-control" id="jenis" name="jenis" required>
+                                                     @foreach ($kandang as $kandangs)
+                                                    <option value="{{ $kandangs->id }}">{{ $kandangs->noKandang }}
                                                     </option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mati">Mati</label>
+                                                <input type="number" class="form-control" id="mati" placeholder="Masukan jumlah ayam yang mati" name="mati" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="culling">Culling</label>
+                                                <input type="number" class="form-control" id="culling" placeholder="Masukan jumlah ayam yang culling" name="culling" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="bobot">Bobot</label>
+                                                <input type="number" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="bobot" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="bobot">Pakan</label>
+                                                <input type="number" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="pakan" required>
                                             </div>
 
                                         </div>
@@ -118,7 +127,7 @@
                     <div class="card-body table-responsive2 ">
                         @role('admin')
                         <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modal-default" style="font-size: 14px;">
-                            <i class="fas fa-plus mr-1"></i> Tambah User
+                            <i class="fas fa-plus mr-1"></i> Tambah Pemeriksaan
                         </a>
                         @endrole
 
@@ -128,9 +137,12 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Peran</th>
+                                    <th>Tanggal</th>
+                                    <th>Kandang</th>
+                                    <th>Mati</th>
+                                    <th>Culling</th>
+                                    <th>Bobot</th>
+                                    <th>Pakan</th>
                                     @role('admin')
                                     <th>Aksi</th>
                                     @endrole
@@ -139,11 +151,11 @@
                             
                             <tbody id="result">
                             <?php $i = 0; ?>
-                                @foreach ($data as $key => $member)
+                                @foreach ($data as $key => $periksa)
                                
                                 <tr>
                                     <?php
-                                    if($member->idPerusahaan == auth()->user()->idPerusahaan){
+                                    if($periksa->idPerusahaan == auth()->user()->idPerusahaan){
                                     // echo auth()->user()->idPerusahaan;
                                     $i++;
                                     ?>
@@ -151,10 +163,12 @@
                                     <!-- <td> {{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td> -->
                                     <td>{{ $i }}</td>
                                     <!-- <td>{{$data->firstItem() + $key  }}</td> -->
-                                    <td>{{$member->fullName}}</td>
-                                    <td>{{$member->email}}</td>
-                                    <td>{{$member->namaPeran}}</td>
-
+                                    <td>{{$periksa->tglPeriksa}}</td>
+                                    <td>{{$periksa->noKandang}}</td>
+                                    <td>{{$periksa->mati}}</td>
+                                    <td>{{$periksa->culling}}</td>
+                                    <td>{{$periksa->bobot}}</td>
+                                    <td>{{$periksa->pakan}}</td>
                                     @role('admin')
                                     <td>
                                         <div class="btn-group">
@@ -166,14 +180,14 @@
                                                     <i class="fas fa-eye mr-1"></i> Detail
                                                 </a>
                                                 <div class="dropdown-divider"></div> -->
-                                                <a href="#" class="dropdown-item " title="Edit Bencana" data-toggle="modal" data-target="#modal-edit-{{$member->idAdmin}}">
+                                                <a href="#" class="dropdown-item " title="Edit Data" data-toggle="modal" data-target="#modal-edit-{{$periksa->idUser}}">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                                         <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                                                     </svg>
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$member->idAdmin}})">
+                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi" onclick="deleteConfirmation({{$periksa->idPeriksa}})">
                                                     <i class="fas fa-trash mr-1"></i> Hapus
                                                 </a>
                                             </div>
@@ -200,49 +214,64 @@
                     <!-- /.card-body -->
                 </div>
                 @foreach ($data as $detail)
-                <div class="modal fade" id="modal-edit-{{ $detail->idAdmin }}">
+                <div class="modal fade" id="modal-edit-{{ $detail->idUser }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Edit Admin</h4>
+                                <h4 class="modal-title">Edit Data Ayam</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <!-- form start -->
-                                <form action="{{ url('/member/edit/'.$detail->idAdmin) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ url('/kandang/edit/'.$detail->idUser) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="namaDepan">Nama depan</label>
-                                            <input type="text" class="form-control" id="namaDepan" placeholder="Masukan nama depan" name="namaDepan" value="{{ $detail->firstname }}" required>
-                                        </div>
+                                             <input type="hidden" class="form-control" id="idPerusahaan" name="idPerusahaan" value="<?php echo auth()->user()->idPerusahaan;?>" required>
 
-                                        <div class="form-group">
-                                            <label for="namaBelakang">Nama belakang</label>
-                                            <input type="text" class="form-control" id="namaBelakang" placeholder="Masukan nama belakang" name="namaBelakang" value="{{ $detail->lastname }}" required>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="tanggal">Tanggal</label>
+                                                <input type="date" class="form-control" id="tgl" name="tgl" value="{{$detail->tglMasuk}}" required>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Masukan email" name="email" value="{{ $detail->email }}" required>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="asal">Nomor Kandang</label>
+                                                <input type="number" class="form-control" id="noKandang" value="{{$detail->noKandang}}" name="noKandang" required>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label for="position-option">Peran</label>
-                                            <select class="form-control" id="peran" name="peran" required>
-                                                <option selected value="{{ $detail->idRole }}" hidden>
-                                                    {{ $detail->namaPeran }}
-                                                </option>
-                                                @foreach ($role as $peran)
-                                                <option value="{{ $peran->id }}">{{ $peran->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="asal">Asal</label>
+                                                <input type="text" class="form-control" id="asal" value="{{$detail->asalPeternak}}" name="asal" required>
+                                            </div>
 
-                                    </div>
+                                            <div class="form-group">
+                                                <label for="position-option">Jenis</label>
+                                                
+                                                    <!-- @foreach ($role as $peran)
+                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select> -->
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="asal">Jumlah</label>
+                                                <input type="text" class="form-control" id="jml" value="{{$detail->jmlAyam}}" name="jml" required>
+                                            </div>
+
+                                            <!-- <div class="form-group">
+                                                <label for="position-option">Peran</label>
+                                                <select class="form-control" id="peran" name="peran" required>
+                                                    @foreach ($role as $peran)
+                                                    <option value="{{ $peran->id }}">{{ $peran->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div> -->
+
+                                        </div>
+                                        <!-- /.card-body -->
 
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Perbarui</button>
@@ -278,7 +307,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{url('member/delete')}}/" + id,
+                        url: "{{url('kandang/delete')}}/" + id,
                         data: {
                             _token: CSRF_TOKEN
                         },

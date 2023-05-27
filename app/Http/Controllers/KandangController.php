@@ -17,7 +17,7 @@ class KandangController extends Controller
      */
     public function index()
     {
-        $users = Kandang::select('kandang.id as idUser','kandang.idPerusahaan','tglMasuk','noKandang','asalPeternak','jnsAyam',
+        $kandang = Kandang::select('kandang.id as idUser','kandang.idPerusahaan','tglMasuk','noKandang','asalPeternak','jnsAyam',
         'jmlAyam')
             ->leftJoin('perusahaan as pr', 'kandang.idPerusahaan', '=', 'pr.idPerusahaan')
             // ->where('idPerusahaan','P0001')
@@ -26,7 +26,7 @@ class KandangController extends Controller
 
         $roles = Role::all();
         return view('admin.kandang.index', [
-            'data' => $users,
+            'data' => $kandang,
             'role' => $roles,
         ]);
     }

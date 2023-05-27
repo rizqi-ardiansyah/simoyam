@@ -11,8 +11,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">User</li>
+                    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Kandang</li>
                 </ol>
             </div>
         </div>
@@ -368,81 +368,6 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
     </script>
-
-    <script>
-        let form = document.getElementById('search');
-        form.addEventListener('beforeinput', e => {
-            const formdata = new FormData(form);
-            let search = formdata.get('search');
-            let url = "{{ route('searchAdmin', "
-            search = ") }}" + search
-
-            if (url === "") {
-                result;
-            } else {
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        let i;
-                        let result = "";
-                        if (data.length === 0) {
-                            result += 'Data tidak ditemukan'
-                        }
-                        for (i = 0; i < data.length; i++) {
-                            let user = data[i]
-                            result +=
-                                `<tr>
-                    <td>${i+1}</td>
-                                    <td>${user.fullName}</td>
-                                    <td>${user.email}</td>
-                                    <td>${user.namaPeran}</td>
-                                    @role('admin')
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                                data-toggle="dropdown" data-offset="-52">
-                                                <i class="fas fa-bars"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-lg" role="menu">
-                                                <!-- <a href="#" class="dropdown-item " data-toggle="modal" data-target="#modal-detail" title="Detail Pengungsi">
-                                                    <i class="fas fa-eye mr-1"></i> Detail
-                                                </a>
-                                                <div class="dropdown-divider"></div> -->
-                                                <a href="#" class="dropdown-item " title="Edit Bencana"
-                                                    data-toggle="modal"
-                                                    data-target="#modal-edit-${user.idAdmin}">
-                                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
-                                                        <path fill="currentColor"
-                                                            d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                                    </svg>
-                                                    Edit
-                                                </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item " title="Hapus Pengungsi"
-                                                    onclick="deleteConfirmation(${user.idAdmin})">
-                                                    <i class="fas fa-trash mr-1"></i> Hapus
-                                                </a>
-                                            </div>
-                                        
-                                        </div>
-                                    </td>
-                                    @endrole
-                                           
-                                            <!-- /.modal-dialog -->
-                                        </div> 
-
-                                    </td>
-                                    
-                    </tr>`;
-                        }
-                        document.getElementById('result').innerHTML = result;
-
-                    }).catch((err) => console.log(err))
-            }
-        });
-    </script>
-
-
 </section>
 
 @endsection()
