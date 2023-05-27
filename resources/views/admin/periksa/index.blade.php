@@ -66,7 +66,7 @@
 
                                             <div class="form-group">
                                                 <label for="position-option">No. Kandang</label>
-                                                <select class="form-control" id="jenis" name="jenis" required>
+                                                <select class="form-control" id="idKandang" name="idKandang" required>
                                                      @foreach ($kandang as $kandangs)
                                                     <option value="{{ $kandangs->id }}">{{ $kandangs->noKandang }}
                                                     </option>
@@ -85,20 +85,20 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="bobot">Bobot</label>
+                                                <label for="bobot">Bobot (kg)</label>
                                                 <input type="number" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="bobot" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="bobot">Pakan</label>
-                                                <input type="number" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="pakan" required>
+                                                <label for="pakan">Pakan (kg)</label>
+                                                <input type="number" class="form-control" id="pakan" placeholder="Masukan rata-rata pakan ayam" name="pakan" required>
                                             </div>
 
                                         </div>
                                         <!-- /.card-body -->
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary" id="button">Submit</button>
+                                            <button type="submit" class="btn btn-primary" id="button">Tambah</button>
                                         </div>
                                     </form>
                                 </div>

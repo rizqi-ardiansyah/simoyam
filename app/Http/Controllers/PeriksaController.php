@@ -6,8 +6,6 @@ use App\Models\Periksa;
 use App\Models\Kandang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 
@@ -43,9 +41,38 @@ class PeriksaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createPeriksa(Request $request)
     {
-        //
+        if (auth()->user()->hasAnyRole(['admin'])) {
+            // $request->validate([
+            //     // 'tanggal' => ['required', 'max:50'],
+            //     'tanggal' => ['required', 'max:50'],
+            //     'idKandang' => ['required', 'max:50'],
+            //     'mati' => ['required', 'max:50'],
+            //     'culling' => ['required', 'max:50'],
+            //     'bobot' => ['required', 'max:50'],
+            //     'pakan' => ['required', 'max:50'],
+            // ]);
+
+            $addPeriksa = new Periksa;
+            // $role = Role::findOrFail($request->peran);
+            $addPeriksa->idPerusahaan = $request->idPerusahaan;
+            $addPeriksa->idKandang = $request->idKandang;
+            $addPeriksa->tglPeriksa = $request->tgl;
+            $addPeriksa->mati = $request->mati;
+            $addPeriksa->culling = $request->culling;
+            $addPeriksa->bobot = $request->bobot;
+            $addPeriksa->pakan = $request->pakan;
+
+            // $addMember->email_verified_at = now();
+            // $addMember->password = Hash::make('password');
+            // $addMember->remember_token = Str::random(10);
+            $addPeriksa->save();
+            // $addMember->assignRole($role);
+            Alert::success('Success', 'Data berhasil ditambahkan');
+            return back();
+        }
+        return back();
     }
 
     /**

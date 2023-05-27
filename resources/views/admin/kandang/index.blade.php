@@ -106,7 +106,7 @@
                                         <!-- /.card-body -->
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary" id="button">Submit</button>
+                                            <button type="submit" class="btn btn-primary" id="button">Tambah</button>
                                         </div>
                                     </form>
                                 </div>
