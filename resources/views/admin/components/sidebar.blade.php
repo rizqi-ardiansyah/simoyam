@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('/dashboard')}}" class="nav-link">
+                    <a href="{{url('/vaksin')}}" class="nav-link">
                         <i class="nav-icon fas fa-clipboard-check"></i>
                         <p>
                             Vaksinasi

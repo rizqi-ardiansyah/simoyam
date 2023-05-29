@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KandangController;
 use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\VaksinasiController;
 
 
 use App\Http\Controllers\LoginController;
@@ -34,6 +35,7 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('kandang', KandangController::class);
 Route::resource('member', MemberController::class);
 Route::resource('periksa', PeriksaController::class);
+Route::resource('vaksin', VaksinasiController::class);
 
 Route::post('kandang/create', [KandangController::class, 'create'])->name('kandang.create');
 Route::match(['get', 'post'], 'kandang/edit/{id}', [KandangController::class, 'edit']);
@@ -46,5 +48,9 @@ Route::post('member/delete/{id}', [MemberController::class, 'delete']);
 Route::post('periksa/create', [PeriksaController::class, 'createPeriksa'])->name('periksa.create');
 Route::match(['get', 'post'], 'periksa/edit/{id}', [PeriksaController::class, 'edit']);
 Route::post('periksa/delete/{id}', [PeriksaController::class, 'delete']);
+
+// Route::post('vaksinasi/create', [VaksinController::class, 'createPeriksa'])->name('periksa.create');
+// Route::match(['get', 'post'], 'periksa/edit/{id}', [PeriksaController::class, 'edit']);
+// Route::post('periksa/delete/{id}', [PeriksaController::class, 'delete']);
 // Route::post('member/delete/{id}', [MemberController::class, 'delete']);
 
