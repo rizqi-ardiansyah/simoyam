@@ -248,6 +248,15 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="position-option">No. Kandang</label>
+                                                 <select class="form-control" id="status" name="status" required>
+                                                    <option selected value="" hidden>Pilih status</option>
+                                                    <option value="1">Berjalan</option>
+                                                    <option value="0">Selesai</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="form-group">
                                                 <label for="mati">Mati</label>
                                                 <input type="number" class="form-control" id="mati" value="{{$detail->mati}}" name="mati" required>
                                             </div>

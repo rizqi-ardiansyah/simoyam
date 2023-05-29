@@ -54,14 +54,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- form start -->
-                                    <form action="{{ route('vaksin.create') }}" method="POST">
+                                    <form action="{{ route('vaksinasi.create') }}" method="POST">
                                         @csrf
                                         <div class="card-body">
                                              <input type="hidden" class="form-control" id="idPerusahaan" name="idPerusahaan" value="<?php echo auth()->user()->idPerusahaan;?>" required>
 
                                             <div class="form-group">
                                                 <label for="tanggal">Tanggal</label>
-                                                <input type="date" class="form-control" id="tgl" name="tgl" placeholder="Masukkan tanggal" required>
+                                                <input type="date" class="form-control" id="tgl" name="tglVaksinasi" placeholder="Masukkan tanggal" required>
                                             </div>
 
                                             <div class="form-group">
@@ -75,23 +75,24 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="mati">Mati</label>
-                                                <input type="number" class="form-control" id="mati" placeholder="Masukan jumlah ayam yang mati" name="mati" required>
+                                                <label for="jenis">Jenis</label>
+                                                <select class="form-control" id="jenis" name="jenis" required>
+                                                    <option selected value="" hidden>Pilih jenis vaksin</option>
+                                                    <option value="0">IB (Infectious Bronchitis)</option>
+                                                    <option value="1">IBD Intermediate</option>
+                                                    <option value="2">AI(Avian Influenza)</option>
+                                                    <option value="4">Gumboro</option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="culling">Culling</label>
-                                                <input type="number" class="form-control" id="culling" placeholder="Masukan jumlah ayam yang culling" name="culling" required>
+                                                <label for="tanggal">Jadwal</label>
+                                                <input type="date" class="form-control" id="jadwal" name="jadwal" placeholder="Masukkan tanggal" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="bobot">Bobot (kg)</label>
-                                                <input type="float" class="form-control" id="bobot" placeholder="Masukan rata-rata bobot ayam" name="bobot" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="pakan">Pakan (kg)</label>
-                                                <input type="number" class="form-control" id="pakan" placeholder="Masukan rata-rata pakan ayam" name="pakan" required>
+                                                <label for="status">Status vaksin</label>
+                                                <input type="number" class="form-control" id="status" placeholder="Masukan status periode vaksinasi" name="status" required>
                                             </div>
 
                                         </div>

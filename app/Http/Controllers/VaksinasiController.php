@@ -41,9 +41,34 @@ class VaksinasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createVaksinasi(Request $request)
     {
-        //
+        if (auth()->user()->hasAnyRole(['admin'])) {
+            // $request->validate([
+            //     // 'tanggal' => ['required', 'max:50'],
+            //     'tanggal' => ['required', 'max:50'],
+            //     'idKandang' => ['required', 'max:50'],
+            //     'mati' => ['required', 'max:50'],
+            //     'culling' => ['required', 'max:50'],
+            //     'bobot' => ['required', 'max:50'],
+            //     'pakan' => ['required', 'max:50'],
+            // ]);
+
+            $addVaksinasi = new Vaksinasi;
+            // $role = Role::findOrFail($request->peran);
+            $addVaksinasi->tglVaksinasi = $request->tglVaksinasi;
+            $addVaksinasi->idPerusahaan = $request->idPerusahaan;
+            $addVaksinasi->idKandang = $request->idKandang;
+            $addVaksinasi->jenis = $request->jenis;
+            $addVaksinasi->jadwal = $request->jadwal;
+            $addVaksinasi->status = $request->status;
+
+            $addVaksinasi->save();
+            // $addMember->assignRole($role);
+            Alert::success('Success', 'Data berhasil ditambahkan');
+            return back();
+        }
+        return back();
     }
 
     /**
