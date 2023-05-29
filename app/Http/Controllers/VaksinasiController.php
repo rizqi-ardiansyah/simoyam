@@ -140,8 +140,26 @@ class VaksinasiController extends Controller
      * @param  \App\Models\Vaksinasi  $vaksinasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vaksinasi $vaksinasi)
+    public function delete($id)
     {
-        //
+        if (auth()->user()->hasAnyRole(['admin'])) {
+            $delete = Vaksinasi::destroy($id);
+
+            // check data deleted or not
+            if ($delete == 1) {
+                $success = true;
+                $message = "Data berhasil dihapus";
+            } else {
+                $success = true;
+                $message = "Data gagal dihapus";
+            }
+
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
+        }
+        return back();
     }
 }

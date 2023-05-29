@@ -335,7 +335,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{url('periksa/delete')}}/" + id,
+                        url: "{{url('vaksinasi/delete')}}/" + id,
                         data: {
                             _token: CSRF_TOKEN
                         },
