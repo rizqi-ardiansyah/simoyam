@@ -75,13 +75,13 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="jenis">Jenis</label>
+                                                <label for="jenis">Jenis vaksin</label>
                                                 <select class="form-control" id="jenis" name="jenis" required>
                                                     <option selected value="" hidden>Pilih jenis vaksin</option>
                                                     <option value="0">IB (Infectious Bronchitis)</option>
                                                     <option value="1">IBD Intermediate</option>
                                                     <option value="2">AI(Avian Influenza)</option>
-                                                    <option value="4">Gumboro</option>
+                                                    <option value="3">Gumboro</option>
                                                 </select>
                                             </div>
 
@@ -169,13 +169,13 @@
                                     <?php
                                         $value = $vaksinasi->jenis;
                                         if ($value == 0) {
-                                            $value = 'Gumboro';
+                                            $value = 'IB';
                                         } elseif ($value == 1) {
-                                            $value = 'IB';
+                                            $value = 'IBD';
                                         } elseif ($value == 2) {
-                                            $value = 'IB';
-                                        } elseif ($value == 3) {
                                             $value = 'AI';
+                                        } elseif ($value == 3) {
+                                            $value = 'Gumboro';
                                         }
                                         // if()
                                     ?>  
@@ -194,7 +194,7 @@
                                                     <i class="fas fa-eye mr-1"></i> Detail
                                                 </a>
                                                 <div class="dropdown-divider"></div> -->
-                                                <a href="#" class="dropdown-item " title="Edit Data" data-toggle="modal" data-target="#modal-edit-{{$vaksinasi->idPeriksa}}">
+                                                <a href="#" class="dropdown-item " title="Edit Data" data-toggle="modal" data-target="#modal-edit-{{$vaksinasi->idVaksinasi}}">
                                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                                         <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                                                     </svg>
@@ -228,74 +228,81 @@
                     <!-- /.card-body -->
                 </div>
                 @foreach ($data as $detail)
-                <div class="modal fade" id="modal-edit-{{ $detail->idPeriksa }}">
+                <div class="modal fade" id="modal-edit-{{ $detail->idVaksinasi }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Edit Pemeriksaan</h4>
+                                <h4 class="modal-title">Edit Vaksinasi</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <!-- form start -->
-                                <form action="{{ url('/periksa/edit/'.$detail->idPeriksa) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ url('/vaksinasi/edit/'.$detail->idVaksinasi) }}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="card-body">
-
+                                        <div class="card-body">
                                              <input type="hidden" class="form-control" id="idPerusahaan" name="idPerusahaan" value="<?php echo auth()->user()->idPerusahaan;?>" required>
-                                           
+
                                             <div class="form-group">
                                                 <label for="tanggal">Tanggal</label>
-                                                <input type="date" class="form-control" id="tgl" name="tgl" value="{{$detail->tglPeriksa}}" required>
+                                                <input type="date" class="form-control" id="tgl" name="tglVaksinasi" value="{{$detail->tglVaksinasi}}" placeholder="Masukkan tanggal" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="position-option">No. Kandang</label>
                                                 <select class="form-control" id="idKandang" name="idKandang" required>
-                                                     <option selected value="{{ $detail->idKandang }}" hidden><?php echo $detail->noKandang; ?></option>
+                                                    <option selected value="{{ $detail->idKandang }}" hidden><?php echo $detail->noKandang; ?></option>
                                                      @foreach ($kandang as $kandangs)
-                                                     <option value="{{ $kandangs->id }}">{{ $kandangs->noKandang }}
+                                                    <option value="{{ $kandangs->id }}">{{ $kandangs->noKandang }}
                                                     </option>
                                                     @endforeach
                                                 </select>
                                             </div>
 
-                                            <?php
-                                                $value = $detail->status;
-                                                if ($value == 1) {
-                                                    $value = 'Berjalan';
-                                                } elseif ($value == 0) {
-                                                    $value = 'Selesai';
-                                                }
-                                                // if()
-                                            ?>
-
                                             <div class="form-group">
-                                                <label for="mati">Mati</label>
-                                                <input type="number" class="form-control" id="mati" value="{{$detail->mati}}" name="mati" required>
+                                                <label for="jenis">Jenis vaksin</label>
+                                                <select class="form-control" id="jenis" name="jenis" required>
+
+                                                    <?php
+                                                        $value = $detail->jenis;
+                                                        if ($value == 0) {
+                                                            $value = 'IB';
+                                                        } elseif ($value == 1) {
+                                                            $value = 'IBD';
+                                                        } elseif ($value == 2) {
+                                                            $value = 'AI';
+                                                        } elseif ($value == 3) {
+                                                            $value = 'Gumboro';
+                                                        }
+                                                        // if()
+                                                    ?>  
+
+                                                    <option selected value="{{ $detail->jenis }}" hidden><?php echo $value; ?></option>
+                                                    <option value="0">IB (Infectious Bronchitis)</option>
+                                                    <option value="1">IBD Intermediate</option>
+                                                    <option value="2">AI(Avian Influenza)</option>
+                                                    <option value="3">Gumboro</option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="culling">Culling</label>
-                                                <input type="number" class="form-control" id="culling" value="{{$detail->culling}}" name="culling" required>
+                                                <label for="tanggal">Jadwal</label>
+                                                <input type="date" class="form-control" id="jadwal" name="jadwal" placeholder="Masukkan tanggal" value="{{$detail->jadwal}}" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="bobot">Bobot (kg)</label>
-                                                <input type="float" class="form-control" id="bobot" value="{{$detail->bobot}}" name="bobot" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="pakan">Pakan (kg)</label>
-                                                <input type="number" class="form-control" id="pakan" value="{{$detail->pakan}}" name="pakan" required>
+                                                <label for="status">Status vaksin</label>
+                                                <input type="number" class="form-control" id="status" placeholder="Masukan status periode vaksinasi" value="{{$detail->status}}" name="status" required>
                                             </div>
 
                                         </div>
                                         <!-- /.card-body -->
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary" id="button">Perbarui</button>
+                                        </div>
+
                                     </div>
                                 </form>
                             </div>

@@ -99,9 +99,27 @@ class VaksinasiController extends Controller
      * @param  \App\Models\Vaksinasi  $vaksinasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vaksinasi $vaksinasi)
+    public function edit(Request $request, $id)
     {
         //
+        $vaksinasi = Vaksinasi::where('id', $id)->first();
+
+        if (auth()->user()->hasAnyRole(['admin'])) {
+            $vaksinasi->idPerusahaan = $request->idPerusahaan;
+            $vaksinasi->idKandang = $request->idKandang;
+            $vaksinasi->tglVaksinasi = $request->tglVaksinasi;
+            $vaksinasi->jenis = $request->jenis;
+            $vaksinasi->status = $request->status;
+          
+            // $member->firstname = $request->namaDepan;
+            // $member->lastname = $request->namaBelakang;
+            // $member->email = $request->email;
+            $vaksinasi->update();
+            // $addPeriksa->syncRoles($role);
+            Alert::success('Success', 'Data berhasil diubah');
+            return redirect()->back();
+        }
+        return redirect()->back();
     }
 
     /**

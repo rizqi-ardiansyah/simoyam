@@ -50,7 +50,7 @@ Route::match(['get', 'post'], 'periksa/edit/{id}', [PeriksaController::class, 'e
 Route::post('periksa/delete/{id}', [PeriksaController::class, 'delete']);
 
 Route::post('vaksinasi/create', [VaksinasiController::class, 'createVaksinasi'])->name('vaksinasi.create');
-Route::match(['get', 'post'], 'periksa/edit/{id}', [PeriksaController::class, 'edit']);
+Route::match(['get', 'post'], 'vaksinasi/edit/{id}', [VaksinasiController::class, 'edit']);
 Route::post('periksa/delete/{id}', [PeriksaController::class, 'delete']);
 Route::post('member/delete/{id}', [MemberController::class, 'delete']);
 
