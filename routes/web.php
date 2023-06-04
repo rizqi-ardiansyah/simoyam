@@ -7,6 +7,7 @@ use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\VaksinasiController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\MainController;
 
 
 use App\Http\Controllers\LoginController;
@@ -24,10 +25,12 @@ use App\Http\Controllers\LoginController;
 
 
 Route::get('', function () {
-    return view('login.login', [
-        'title' => 'Silahkan login terlebih dahulu'
+    return view('main.index', [
+        // 'title' => 'Silahkan login terlebih dahulu'
     ]);
 });
+// Route::get('/main',[MainController::class,'index']);
+
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -62,3 +65,5 @@ Route::get('laporan/exportExcel/{id}', [LaporanController::class, 'exportExcel']
 Route::get('/printReview', [LaporanController::class, 'printReview'])->name('printReview');
 
 Route::get('/filter',[LaporanController::class,'filter']);
+
+

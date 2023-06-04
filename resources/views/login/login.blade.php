@@ -16,6 +16,8 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
+            <h1 style="color: white; font-weight: bold; ">SIMOYAM</h1>
+            <p style="font-size: 16pt; font-style: italic; color: white;">Sistem Monitoring Ayam Ternak</p>
             <!-- <img class="lgn-logo" src="{{url('/assets/img/logo.png')}}" alt="logo-login"> -->
         </div>
 

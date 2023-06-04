@@ -18,7 +18,7 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-                <a href="javascript:;"   onclick="logoutConfirmation()" class="nav-link">
+                <a href="javascript:;" onclick="logoutConfirmation()" class="nav-link">
                     <i class="nav-icon fas fa-power-off"></i>
                 </a>
         </li>
