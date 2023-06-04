@@ -141,8 +141,8 @@
                                     <th>Kandang</th>
                                     <th>Mati</th>
                                     <th>Culling</th>
-                                    <th>Bobot</th>
-                                    <th>Pakan</th>
+                                    <th>Bobot (kg)</th>
+                                    <th>Pakan (kg)</th>
                                     @role('admin')
                                     <th>Aksi</th>
                                     @endrole

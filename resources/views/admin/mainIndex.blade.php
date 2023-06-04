@@ -33,9 +33,9 @@
 
     <link rel="stylesheet" href="{{url('/assets/css/style.css')}}">
 
-
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"> -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.printPage.js"></script>
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js"></script>
@@ -242,6 +242,9 @@
     <!-- <script src="{{url('/assets/template/js/demo.js')}}"></script> -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{url('/assets/template/js/pages/dashboard.js')}}"></script>
+    <script type="text/javascript" src="{{url('/assets/template/js/jquery-1.4.4.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('/assets/template/js/jquery.printPage.js')}}"></script>
+
 </body>
 
 </html>

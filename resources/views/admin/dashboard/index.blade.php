@@ -9,7 +9,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>1110</h3>
+                        <h3>{{ $ttlAyam }}</h3>
                         <p>Total Ayam</p>
                     </div>
                     <div class="icon">
@@ -25,7 +25,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3 style="color: #ffff;">300</h3>
+                        <h3 style="color: #ffff;">{{ $ttlCulling }}</h3>
                         <p style="color: #ffff;">Culling + Cacat</p>
                     </div>
                     <div class="icon">
@@ -42,7 +42,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>50</h3>
+                        <h3>{{ $ttlMati }}</h3>
                         <p>Mati</p>
                     </div>
                     <div class="icon">
@@ -60,7 +60,7 @@
                 <!-- small box -->
                 <div class="small-box bg-orange">
                     <div class="inner">
-                        <h3 style="color: #ffff;">758</h3>
+                        <h3 style="color: #ffff;">{{ $ttlPanen }}</h3>
                         <p style="color: #ffff;">Panen</p>
                     </div>
                     <div class="icon">
@@ -80,7 +80,7 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3 style="color: #ffff;">80</h3>
+                        <h3 style="color: #ffff;">{{ $ttlPakan }} kg</h3>
                         <p style="color: #ffff;">Kumulatif Pakan</p>
                     </div>
                     <div class="icon">
@@ -96,7 +96,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3 style="color: #ffff;">100</h3>
+                        <h3 style="color: #ffff;">{{ $getPeriode }}</h3>
                         <p style="color: #ffff;">Periode Vaksinasi</p>
                     </div>
                     <div class="icon">

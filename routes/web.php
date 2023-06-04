@@ -6,6 +6,7 @@ use App\Http\Controllers\KandangController;
 use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\VaksinasiController;
+use App\Http\Controllers\LaporanController;
 
 
 use App\Http\Controllers\LoginController;
@@ -36,6 +37,7 @@ Route::resource('kandang', KandangController::class);
 Route::resource('member', MemberController::class);
 Route::resource('periksa', PeriksaController::class);
 Route::resource('vaksinasi', VaksinasiController::class);
+Route::resource('laporan', LaporanController::class);
 
 Route::post('kandang/create', [KandangController::class, 'create'])->name('kandang.create');
 Route::match(['get', 'post'], 'kandang/edit/{id}', [KandangController::class, 'edit']);
@@ -53,3 +55,10 @@ Route::post('vaksinasi/create', [VaksinasiController::class, 'createVaksinasi'])
 Route::match(['get', 'post'], 'vaksinasi/edit/{id}', [VaksinasiController::class, 'edit']);
 Route::post('vaksinasi/delete/{id}', [VaksinasiController::class, 'delete']);
 
+// Route::get('laporan/exportPdf/{id}',  [LaporanController::class, 'exportPdf'])->name('laporan.exportPdf');
+Route::get('/exportPdf', [LaporanController::class, 'exportPdf'])->name('exportPdf');
+Route::get('laporan/exportExcel/{id}', [LaporanController::class, 'exportExcel']);
+
+Route::get('/printReview', [LaporanController::class, 'printReview'])->name('printReview');
+
+Route::get('/filter',[LaporanController::class,'filter']);

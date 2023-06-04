@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posko;
+use App\Models\Kandang;
 use Illuminate\Http\Request;
-use App\Models\Bencana;
+use App\Models\Periksa;
 use App\Models\User;
+use App\Models\Vaksinasi;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -17,8 +18,22 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $getAyam = Kandang::sum('jmlAyam');
+        $getCulling = Periksa::sum('culling');
+        $getMati = Periksa::sum('mati');
+        $getPanen = $getAyam - $getCulling - $getMati;
+        $getPakan = Periksa::sum('pakan');
+        $getVaksinasi = Vaksinasi::orderBy('id','desc')->first();
+        $maxValue = $getVaksinasi->status;
+        // $ttlAyam = $getRP->count();
+
         return view('admin.dashboard.index', [
-           
+           'ttlAyam' => $getAyam,
+           'ttlCulling' => $getCulling,
+           'ttlMati' => $getMati,
+           'ttlPanen' => $getPanen,
+           'ttlPakan' => $getPakan,
+           'getPeriode' => $maxValue
         ]);
     }
 
