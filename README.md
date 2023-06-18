@@ -120,7 +120,7 @@ A livestock chicken monitoring system in collaboration with PT. Charoen Pokphand
 
 9. Do the seeder first
     ```sh
-    php artisan:seeder
+    php artisan db:seed
     ```
     
 10. Run projects
